@@ -15238,3 +15238,5 @@ venv/share/jupyter/kernels/python3/logo-64x64.png
 venv/share/man/man1/ipython.1.gz
 venv/xgboost/vcomp140.dll
 venv/Lib/site-packages/IPython/__init__.py
+venv/Lib/site-packages/debugpy/_vendored/pydevd/_pydevd_frame_eval/pydevd_frame_evaluator.cp39-win_amd64.pyd
+venv/Lib/site-packages/debugpy/_vendored/pydevd/_pydevd_frame_eval/pydevd_frame_evaluator.pyx
