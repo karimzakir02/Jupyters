@@ -1,0 +1,15 @@
+# Bootstrap Your Own Latent (BYOL)
+
+BYOL is a new approach to self-supervised representation learning introduced by Grill et al. in this [paper](https://arxiv.org/abs/2006.07733v3). Self-supervised learning is a branch of machine learning which focuses on learning representations of data that can then help with other tasks. These sorts of methods are incredibly useful when there's a limited amount of labelled data or no labelled data available at all.   
+
+BYOL learns an image's representation/encoding using two models called online and target models, which interact and learn from each other. The three differences between the two models are their architectures, the input, and how their parameters change. Let's start by focusing on the online network. 
+
+The online network's main objective is to predict the target network's output. Although this task seems a bit unintuitive or possibly trivial, a reason why this task is not "easy" is because the two networks are fed two (possibly very) different augmentations of the same image. The idea behind this is that the model will learn to ignore the effects of the augmentations and learn the "essence" of the image. Another reason why this task is not easy is because the models have two different architectures. The online network consists of three stages: an encoder, a projector, and a predictor. After running an augmented image through these three different stages, we measure the mean squared difference between the output of the online network and the output of the target network and adjust the parameters of the online network accordingly. 
+
+The target network, on the other hand, consists of only two stages: an encoder and a projector. Additionally, unlike the online network, the target network has no clear objective, and thus, it's parameters are adjust differently. At each training step, the parameters of the target network are the exponential moving average of the online network. 
+
+Once training ends, we retrieve (and save) the encoder in the online network and use it for downstream tasks, like image classification. The paper has shown that this method has many advantages compared to other self-supervised methods of learning. Primarily, this method does not require the use of "negative pairs", pairs of image which are different from each other; these pairs require a careful curation of the dataset. Additionally, the authors showed that the model has achieved better results than other self-supervised learning methods on classification tasks and other vision tasks. Finally, BYOL is not as sensitive to the choice of image augmentations compared to other models, like SimClr. 
+
+A downside of the model, however, is that there is no obvious method to apply this to other types of data, since it relies heavily on augmentations. To generalize the method, it is first necessary to obtain augmentations for those types of data.
+
+For an implementation, please refer to the Jupyter notebook located in this directory. Let me know if you have any feedback by opening an issue on GitHub!
